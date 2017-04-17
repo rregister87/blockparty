@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+/*
+	Mixin to create a min-width media query using defined breakpoints.
+	Ex @min($sm) { }
+*/
+
+@mixin min($breakpoint) {
+	@media screen and (min-width: $breakpoint) {
+		@content;
+	}
+}

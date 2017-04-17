@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+/*
+	Mixin to create a max-width media query using defined breakpoints.
+	Substracts 1px, creating a rule that applies up to the specified breakpoint.
+	Ex. @max($sm) { }
+*/
+
+@mixin max($breakpoint) {
+	@media screen and (max-width: ($breakpoint - 1px)) {
+		@content;
+	}
+}

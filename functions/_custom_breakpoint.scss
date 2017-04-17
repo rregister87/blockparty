@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+/*
+	Function to define custom breakpoints in px.
+	Ex. $custom: custom-breakpoint(400px);
+	It is assumed that you are specifying a minimum threshold, similar to the defaults.
+*/
+
+@function custom-breakpoint($width) {
+	// add missing px unit if necessary
+	@if unitless($width) {
+		$width: $width * 1px;
+	}
+	@return $breakpoint;
+}
