@@ -5,9 +5,7 @@ After years of toying with SASS frameworks such as Susy and Bourbon (+Neat), I'v
 
 ## Scaffolding
 
-Let's be honest, when was the last time you used anything but the 'border-box' attribute of the 'box-sizing' property? When was the last time, as an English speaker, that you coded any layout that was left-to-right? Yep. Me neither.
-```css
-```
+Let's be honest, when was the last time you used anything but the 'border-box' attribute of the 'box-sizing' property? As such, BlockParty is going to set the <html> tag to use border-box by default. It also will remove any padding and margin applied to the <body> or <html> tag by browser stylesheets. That's all we really need to get started, so enough said about the basic setup.
 
 ## Media Queries
 
