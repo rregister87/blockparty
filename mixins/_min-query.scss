@@ -2,10 +2,10 @@
 
 /*
 	Mixin to create a min-width media query using defined breakpoints.
-	Ex @min($sm) { }
+	Ex @min-query($sm) { }
 */
 
-@mixin min($breakpoint) {
+@mixin min-query($breakpoint) {
 	@media screen and (min-width: $breakpoint) {
 		@content;
 	}

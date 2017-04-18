@@ -3,10 +3,10 @@
 /*
 	Mixin to create a max-width media query using defined breakpoints.
 	Substracts 1px, creating a rule that applies up to the specified breakpoint.
-	Ex. @max($sm) { }
+	Ex. @max-query($sm) { }
 */
 
-@mixin max($breakpoint) {
+@mixin max-query($breakpoint) {
 	@media screen and (max-width: ($breakpoint - 1px)) {
 		@content;
 	}

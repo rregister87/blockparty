@@ -1,28 +1,29 @@
 # BlockParty
 A simple SASS framework for rapid, mobile first development.
 
-After years of toying with SASS frameworks such as Susy and Bourbon (+Neat), I've finally followed through on my threats to create my own simplistic SASS based framework, the way I think it should work. Care to join me?
+After years of toying with SASS frameworks such as Susy and Bourbon (+Neat), I've finally followed through on my threats to create my own simplistic SASS based framework, in a way that better suits my development style. In time I hope to grow this project into a full-featured, but minimal suite for like minded developers.
 
-## Grid Scaffolding
+## Scaffolding
 
+Let's be honest, when was the last time you used anything but the 'border-box' attribute of the 'box-sizing' property? When was the last time, as an English speaker, that you coded any layout that was left-to-right? Yep. Me neither.
 ```css
 ```
 
 ## Media Queries
 
-BlockParty handles media queries primarily through the use of the 'min' mixin:
+BlockParty handles media queries primarily through the use of the 'min-query' mixin:
 ```css
-@include min($md) {}
+@include min-query($md) { /* your css here */ }
 ```
-Simply add your CSS code within the brackets, and a 'min-width' media query will be created beginning at the specified breakpoint. Skip ahead to the next section to find out about the preset breakpoints included with BlockParty, or how to establish new, custom breakpoints.
+Simply add your CSS code, and a 'min-width' media query will be created beginning at the specified breakpoint. Skip ahead to the next section to find out more about the preset breakpoints included with BlockParty, or how to establish new, custom breakpoints for use in your project.
 
-If you are truly developing mobile first, the 'min' mixin should handle 99% of your use cases. But for the sake of completion, I've also included a 'max' mixin:
+If you are truly developing mobile first, the 'min-query' mixin should handle 99% of your use cases. But for the sake of completion, I've also included a 'max-query' mixin:
 ```css
-@include max($lg) {}
+@include max-query($lg) { /* your css here */ }
 ```
-The 'max' mixin will subtract 1px from the minimum threshold of the established breakpoint, establishing a 'max-width' media query up to the specified breakpoint.
+The 'max-query' mixin will subtract 1px from the minimum threshold of the established breakpoint, establishing a 'max-width' media query up to the specified breakpoint.
 
-Note that I have intentionally excluded a mixin for creating media rules that only apply between a minimum and maximum value. You should try to write cleaner code to avoid the need for these, but if you absolutely must, you could always nest the 'min' and 'max' mixins like so:
+Note that I have intentionally excluded a mixin for creating media rules that only apply between a minimum and maximum value at this time. You should try to write cleaner code to avoid the need for these, but if you absolutely must, you could always nest the 'min-query' and 'max-query' mixins like so:
 
 ## Breakpoints
 
@@ -33,19 +34,22 @@ $md: 992px;
 $lg: 1200px;
 $xl: 1400px;
 ```
-If you've ever used Bootstrap, these should look familiar.
+If you've ever used the Bootstrap CSS framework, these should look familiar. The established breakpoints represent a minimum threshold, meaning that each breakpoint includes everything upwards. All of these can be used with the included media query mixins out of the box. Feel free to override these default variables in your project if you wish.
 
-Creating a custom breakpoint is as simple as using the 'custom-breakpoint' function:
+Creating additional breakpoints is as simple as using the 'custom-breakpoint' function:
 ```css
 $custom: custom-breakpoint(400px);
 ```
-Note that the value of the breakpoint should always represent the minimum threshold. You can also replace the existin breakpoints with your own pixel values of you desire.
-
+As with the defaults, the pixel value passed to the function should represent a minimum value. It's also OK if you forget to add the unit -- BlockParty will handle that for you.
 ## The Grid
 
-Blockparty creates a float based grid system by using the included 'columns' mixin. Simply specify a number of columns that the element should span, out of the total number of columns within the row.
+BlockParty creates a float based grid system by using the included 'columns' mixin. Simply specify a number of columns that the element should span, out of the total number of columns within the row.
 ```css
 @include columns(6 of 12);
 ```
-Make sure to always wrap any columns within an element that uses the 'row' mixin described in the first section. This will apply clearfixes, and avoid layout issues caused by floats.
+Make sure to always wrap any columns within an element that utilizes the 'row' mixin described in the first section. This will apply clearfixes, and avoid layout issues caused by floats.
+
+I've intentionally created BlockParty in such a way that it avoids creating a global default number of columns, or specifying a number of columns for each media breakpoint like some other SASS frameworks. Doing so is convenient, only until it isn't. You end up with a default value, which gets overridden by a column value unique to that breakpoint, which can then be overridden by properties passed to the column mixin. The result is code that becomes difficult to interpret, especially when collaborating with other developers.
+
+So how does it work? BlockParty utilizes a gutter between grid elements that is applied as a margin-left CSS property. Because we assume that all layouts will be coded left to right, the left-most element in the grid has its margin-left property removed, and that grid width is then redistributed accordingly and applied in equal parts to widths of the elements in the row. The result is a gutter between each element, but content that aligns nicely and fills the full width of the containing element.
 
