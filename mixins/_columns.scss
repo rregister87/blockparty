@@ -8,10 +8,12 @@
 @mixin columns($span: $columns of $container-columns) {
 	float: left;
 	margin-left: $gutter;
-	$offset_each: $gutter / nth($span, 3);
-	$offset_this: $offset_each * nth($span, 1);
-	$percent: percentage((nth($span, 1) / nth($span, 3)));
-	width: calc(#{$percent} - #{$gutter} + #{$offset_this});
+
+	$offset_factor: $gutter / nth($span, 3);
+	$compensate: $offset_factor * nth($span, 1);
+	$width_percent: percentage((nth($span, 1) / nth($span, 3)));
+	$computed_gutter: $gutter + $compensate;
+	width: calc(#{$width_percent} - #{$computed_gutter});
 	
 	&:first-child {
 		margin-left: 0;
