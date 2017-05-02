@@ -2,6 +2,6 @@
 
 @mixin push($push: $columns of $container-columns) {
 	position: relative;
-	$percentage: nth($push, 1) / nth($push, 3);
+	$percentage: percentage(nth($push, 1) / nth($push, 3));
 	left: $percentage;
 }
