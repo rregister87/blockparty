@@ -74,3 +74,16 @@ So how does it work? BlockParty utilizes a gutter between grid elements that is 
 }
 ```
 
+It's important to note that your elements within the same row should use the same gutter property. Unfortunately this is an unavoidable limitation. Using a different gutter value for elements within the same row will result in issues at this time.
+
+## Pushing and Pulling
+Blockparty has support for re-ordering columns using the 'push' and 'pull' mixins. Simply specify a number of columns and maximum number of columns, similar to the 'columns' mixin.
+```css
+@include push(6 of 12);
+```
+```css
+@include pull(6 of 12);
+```
+This can be used to reorder columns at a specified resolution when used in conjunction with the 'min-query' and 'max-query' mixins.
+
+
