@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+@mixin push($push: $columns of $container-columns) {
+	position: relative;
+	$percentage: nth($push, 1) / nth($push, 3);
+	left: $percentage;
+}
