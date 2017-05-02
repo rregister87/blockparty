@@ -5,12 +5,20 @@ After years of toying with SASS frameworks such as Susy and Bourbon (+Neat), I'v
 
 ## Scaffolding
 
-Let's be honest, when was the last time you used anything but the 'border-box' attribute of the CSS 'box-sizing' property? Never? Yeah...That's pretty much how it should be in the modern age. As such, BlockParty is going to set the <html> tag to use border-box by default, and have all other elements inherit the 'border-box' attribute as your html cascades. BlockParty also will remove any padding and margin applied to the <body> or <html> tag by browser stylesheets. No fancy mixins or work to be done here, but rather some default CSS just applied by including BlockParty. That's all we really need to get started, so enough said about the basic setup.
+Let's be honest, when was the last time you used anything but the 'border-box' attribute of the CSS 'box-sizing' property? Never? Yeah...That's pretty much how it should be in the modern age. As such, BlockParty is going to set the <html> tag to use border-box by default, and have all other elements inherit the 'border-box' attribute as your html cascades. BlockParty also will remove any padding and margin applied to the <body> or <html> tag by browser stylesheets. No fancy mixins or work to be done here, but rather some default CSS just applied by including BlockParty. That's all we really need to get started, so enough said about the basic setup. The same CSS output is as follows:
+```css
+*, *:after, *:before {
+	box-sizing: inherit;
+}
 
-## Default Config
+body, html {
+	margin: 0;
+	padding: 0; }
 
-Below are the default settings applied by the framework. Feel free to override any of these to your own custom values.
-
+html {
+	box-sizing: border-box;
+}
+```
 ## Media Queries
 
 BlockParty handles media queries primarily through the use of the 'min-query' mixin:
@@ -74,7 +82,7 @@ So how does it work? BlockParty utilizes a gutter between grid elements that is 
 }
 ```
 
-It's important to note that your elements within the same row should use the same gutter property. Unfortunately this is an unavoidable limitation. Using a different gutter value for elements within the same row will result in issues at this time.
+It's important to note that your elements within the same row should use the same gutter value. Unfortunately this is an unavoidable limitation. Using a different gutter value for elements within the same row will result in issues at this time.
 
 ## Pushing and Pulling
 Blockparty has support for re-ordering columns using the 'push' and 'pull' mixins. Simply specify a number of columns and maximum number of columns, similar to the 'columns' mixin.
