@@ -53,24 +53,24 @@ The first component of the grid system is the 'container' mixin. This concept sh
 
 The second necessary component of our grid system is the 'row' mixin. This will apply clearfixes, and avoid layout issues caused by floats. Again, like the 'container' mixin, this should be a familiar concept for those familiar with responsive design. Apply this mixin to any parent element that contains floats.
 ```css
-@include row(1200px);
+@include row();
 ```
 
-In coordination with the 'container' and 'row' mixins, BlockParty creates a float based grid system by utilizing the 'columns' mixin. Simply specify a number of columns that the element should span, out of the total number of columns within the row.
+In coordination with the 'container' and 'row' mixins, BlockParty creates a float based grid system by utilizing the 'columns' mixin. Simply specify a number of columns that the element should span, out of the total number of columns within the row, as well as a gutter value in pixels, which wil be applied as a 'margin-right' property.
 ```css
-@include columns(6 of 12);
+@include columns(6 of 12 20px);
 ```
 Again, make sure to always wrap any columns within an element that utilizes the 'row' mixin described above in order avoid the issues characteristic of float based layouts.
 
-I've intentionally created BlockParty in such a way that it avoids creating a global default number of columns, or specifying a number of columns for each media breakpoint like some other SASS frameworks. Doing so is convenient, but only until it isn't. You end up with a default value, which gets overridden by a column value unique to that breakpoint, which can then be overridden by properties passed to the column mixin. The result is code that becomes difficult to interpret, especially when collaborating with other developers.
+I've intentionally created BlockParty in such a way that it avoids creating a global default number of columns, or specifying a number of columns for each media breakpoint like some other SASS frameworks. Doing so is convenient, but only until it isn't. You end up with a default value, which gets overridden by a column value unique to that breakpoint, which can then be overridden by properties passed to the column mixin. The result is code that becomes difficult to interpret, especially when collaborating with other developers. The same is true for the gutter property. Yes, you will have to specify a total number of columns and a gutter value for each use of the 'columns' mixin, but ultimately, it provides more flexibility.
 
-So how does it work? BlockParty utilizes a gutter between grid elements that is applied as a 'margin-left' CSS property. Because we assume that all layouts will be coded left to right, the left-most element in the grid has its margin-left property removed, and that grid width is then redistributed accordingly and applied in equal parts to widths of the elements in the row. The result is a gutter between each element, but content that aligns nicely and fills the full width of the containing element. It's stupid simple. There's no 'omega' to worry about (a la Bourbon neat <= 1.8), nor do you have to create a myriad of different grid layouts (a la Bourbon Neat 2.0). If you want to create a different column layout at a different screen size, simply use the media query functionality described above and use the 'columns' mixin within the media query, like so:
+So how does it work? BlockParty utilizes a gutter between grid elements that is applied as a 'margin-right' CSS property. Because we assume that all layouts will be coded left to right, the last element in the grid has its margin-right property removed, and that grid width is then redistributed accordingly and applied in equal parts to widths of the elements in the row. The result is a gutter between each element, but content that aligns nicely and fills the full width of the containing element. It's stupid simple. There's no 'omega' to worry about (a la Bourbon neat <= 1.8), nor do you have to create a myriad of different grid layouts (a la Bourbon Neat 2.0). If you want to create a different column layout at a different screen size, simply use the media query functionality described above and use the 'columns' mixin within the media query, like so:
 ```css
 .foo {
 	@include min-query($md) {
-		@include columns(4 of 12);
+		@include columns(4 of 12 30px);
 	}
-	@include columns(6 of 12);
+	@include columns(6 of 12 20px);
 }
 ```
 
