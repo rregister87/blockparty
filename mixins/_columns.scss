@@ -7,21 +7,28 @@
 
 @mixin columns($span: $columns of $container-columns $gutter) {
 	float: left;
+
 	$gutter: nth($span, 4);
 	@if unitless(nth($span, 4)) {
 		$gutter: nth($span, 4) * 1px;
 	}
+
 	$offset_factor: $gutter / nth($span, 3);
 	$compensate: $offset_factor * nth($span, 1);
 	$width_percent: percentage((nth($span, 1) / nth($span, 3)));
 	$computed_gutter: nth($span, 4) - $compensate;
+
 	width: calc(#{$width_percent} - #{$computed_gutter});
 	
 	$no_margin: nth($span, 3) / nth($span, 1);
+
 	&:nth-child(n) { margin-right: $gutter; }
-	&:nth-child(#{$no_margin}) {
-		margin-right: 0;
+	@if round($no_margin) == $no_margin {
+		&:nth-child(#{$no_margin}) {
+			margin-right: 0;
+		}
 	}
+
 	&:last-child {
 		margin-right: 0;
 	}
