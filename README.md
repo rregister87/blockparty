@@ -66,17 +66,23 @@ In coordination with the 'container' and 'row' mixins, BlockParty creates a floa
 ```css
 @include columns(6 of 12 20px);
 ```
-I've intentionally created BlockParty in such a way that it avoids creating a global default number of columns, or specifying a number of columns for each media breakpoint like some other SASS frameworks. Doing so is convenient, but only until it isn't. You end up with a default value, which gets overridden by a column value unique to that breakpoint, which can then be overridden by properties passed to the column mixin. The result is code that becomes difficult to interpret, especially when collaborating with other developers. The same is true for the gutter property. Yes, it's not particularly DRY to specify a total number of columns and a gutter value for each use of the 'columns' mixin, but ultimately, it provides more flexibility.
+If you want to create a different column layout at a different screen size, simply use the media query functionality described above and use the 'columns' mixin within the media query.
 
-So how does it work? BlockParty utilizes a gutter between grid elements that is applied as a 'margin-right' CSS property. Because we assume that all layouts will be coded left to right, the last element in the grid has its margin-right property removed, and that gutter width is then redistributed accordingly and applied in equal parts to widths of the elements in the row. The result is a gutter between each element, but content that aligns nicely and fills the full width of the containing element. Conceptually, it's stupid simple. There's no 'omega' property to worry about (a la Bourbon neat <= 1.8), nor do you have to create a myriad of different grid layouts (a la Bourbon Neat 2.0). If you want to create a different column layout at a different screen size, simply use the media query functionality described above and use the 'columns' mixin within the media query, like so:
+## The Part Where I Explain Things...
+I intentionally created BlockParty in such a way that it avoids creating a global default number of columns, or specifying a number of columns for each media breakpoint like some other SASS frameworks. Doing so is convenient, but only until it isn't. You end up with a mess of default values, which can then be overridden by properties passed to the column mixin on a per use basis. Yes, it's not particularly DRY to specify a total number of columns and a gutter value for each use of the 'columns' mixin, but ultimately, it provides more flexibility.
+
+BlockParty utilizes a gutter between grid elements that is applied as a 'margin-right' CSS property. Because we assume that all layouts will be coded left to right, the last element in the grid has its margin-right property removed, and that gutter width is then redistributed accordingly and applied in equal parts to widths of the elements in the row using a little math. The result is a gutter between each element, but content that aligns nicely and fills the full width of the containing element.
+
+But wait! What if you want an element to span a different number of columns at different resolutions? Consider the following example:
 ```css
 .foo {
-	@include min-query($md) {
-		@include columns(4 of 12 30px);
-	}
 	@include columns(6 of 12 20px);
+	@include min-query($md) {
+		@include columns(3 of 12 30px);
+	}
 }
 ```
+In the above example, the '.foo' class would span one half (50%) up to the '$md' breakpoint, and then then span one fourth (25%). If you had only negated the 'margin-right' property of the last child within the row, you would be left with an awkward margin-right value on the second element prior to the '$md' breakpoint. Blockparty addresses this issue by calculating the final element visually at the given breakpoint, and removing the 'margin-right' from that element, as well as the final element within the row.
 
 It's important to note that your elements within the same row should use the same gutter value. Unfortunately this is an unavoidable limitation. Using a different gutter value for elements within the same row will result in issues at this time.
 
@@ -88,5 +94,13 @@ Blockparty has support for re-ordering columns using the 'push' and 'pull' mixin
 ```css
 @include pull(6 of 12);
 ```
+
+## Known Issues
+
+right now if you try to use a different gutter for different elements within a row... it breaks. Fuck.
+
+I wonder if there's a way to output the media queries at the end of the file? Right now if you use the column mixin multiple times, it will only obey the last one in the file.
+
+
 
 
