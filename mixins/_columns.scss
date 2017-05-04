@@ -2,27 +2,23 @@
 
 /*
 	Columns functionality.
-	Ex. @include columns(6 of 12 30px)
+	Ex. @include columns(6);
 */
 
-@mixin columns($span: $columns of $container-columns $gutter) {
+@mixin columns($span) {
 	float: left;
 
-	$gutter: nth($span, 4);
-	@if unitless(nth($span, 4)) {
-		$gutter: nth($span, 4) * 1px;
-	}
-
-	$offset_factor: $gutter / nth($span, 3);
-	$compensate: $offset_factor * nth($span, 1);
-	$width_percent: percentage((nth($span, 1) / nth($span, 3)));
-	$computed_gutter: nth($span, 4) - $compensate;
+	$offset_factor: $gutter / $columns;
+	$compensate: $offset_factor * $span;
+	$width_percent: percentage($span / $columns);
+	$computed_gutter: $gutter - $compensate;
 
 	width: calc(#{$width_percent} - #{$computed_gutter});
 	
-	$no_margin: nth($span, 3) / nth($span, 1);
+	$no_margin: $columns / $span;
 
 	&:nth-child(n) { margin-right: $gutter; }
+
 	@if round($no_margin) == $no_margin {
 		&:nth-child(#{$no_margin}) {
 			margin-right: 0;
