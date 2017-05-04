@@ -1,7 +1,12 @@
 @charset "UTF-8";
 
-@mixin pull($pull: $columns of $container-columns) {
+/*
+	Pull functionality.
+	Ex. @include pull(6);
+*/
+
+@mixin pull($pull) {
 	position: relative;
-	$percentage: percentage(nth($pull, 1) / nth($pull, 3));
+	$percentage: percentage($pull / $columns);
 	right: $percentage;
 }

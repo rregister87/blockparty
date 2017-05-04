@@ -1,7 +1,12 @@
 @charset "UTF-8";
 
-@mixin push($push: $columns of $container-columns) {
+/*
+	Push functionality.
+	Ex. @include push(6);
+*/
+
+@mixin push($push) {
 	position: relative;
-	$percentage: percentage(nth($push, 1) / nth($push, 3));
+	$percentage: percentage($push / $columns);
 	left: $percentage;
 }
