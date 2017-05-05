@@ -3,7 +3,7 @@ A simple SASS framework for rapid, mobile first development.
 
 ## Scaffolding
 
-A bit quick setup before we begin. Blockparty will output the following CSS scaffolding for your project:
+A bit of quick setup before we begin. Blockparty will output the following CSS scaffolding for your project:
 ```css
 *, *:after, *:before {
 	box-sizing: inherit;
@@ -24,29 +24,34 @@ $container: 1200px;
 $columns: 12;
 $gutter: 2em;
 ```
-Feel free to override any of these variables to suit your own needs in your project file.
+Feel free to override any of these global variables to suit your own needs in your project file.
 
-## Grid Usage
-The first component of the grid system is the 'container' mixin. This concept should be familiar to anyone who has used a responsive framework in the past. Simply pass the mixin a number value, and it will create a centered div with a maximum width property. If no width is specified, the default value of specified in the previous section will be used.
+## Custom Grids
+In some situations, you'll want to alter the default grid settings to adjust the container size, number of columns, or gutter size. This can be done using the 'grid' mixin. Any use of the 'columns' mixin within a custom grid will inherit the settings of the grid.
+```css
+@include grid($foo);
+```
+
+To define a new custom grid, use the...
+
+## The Grid System
+The first component of the grid system is the 'container' mixin. This concept should be familiar to anyone who has used a responsive framework in the past. Simply pass the mixin a number value, and it will create a centered div with a maximum width property. If no width is specified, the default value will be used.
 ```css
 @include container(1200px);
 ```
 
-The second necessary component of our grid system is the 'row' mixin. This will apply clearfixes, and avoid layout issues caused by floats. Again, like the 'container' mixin, this should be a familiar concept for those familiar with responsive design, and the Bootstrap system in particular. Apply this mixin to any parent element that contains floated elements. There is no styling applied to row element itself, but the clearfix is handled by a pseudo element.
+The second necessary component of the grid system is the 'row' mixin. This will apply clearfixes, and avoid layout issues caused by floats. Again, like the 'container' mixin, this should be a familiar concept for those familiar with responsive design, and the Bootstrap system in particular. Apply this mixin to any parent element that contains floated elements. There is no styling applied to row element itself, but the clearfix is handled by a pseudo element.
 ```css
 @include row();
 ```
 
-In coordination with the 'container' and 'row' mixins, BlockParty creates a float based grid system by utilizing the 'columns' mixin. Simply specify a number of columns that the element should span relative to the number of columns in the layout. If you are using the 'columns' mixin outside of the 'layout' mixin, the default value for number of columns specified in the previous section will be utilized.
+In coordination with the 'container' and 'row' mixins, BlockParty creates a float based grid system by utilizing the 'columns' mixin. Simply specify a number of columns that the element should span relative to the number of columns in the layout. If you are using the 'columns' mixin outside of the 'grid' mixin, the default value for number of columns will be utilized.
 ```css
 @include columns(6);
 ```
 If you want to create a different column layout at a different screen size, continue reading to learn more about the media query functionality included with BlockParty.
 
-## Custom Layouts
-
-
-## Pushing and Pulling
+## Pushing and Pulling Columns
 BlockParty has support for re-ordering columns using the 'push' and 'pull' mixins. Simply specify a number of columns, similar to the 'columns' mixin. 'Push' moves elements to the right, while 'Pull' moves elements to the left. This becomes quite useful for re-ordering content when used in combination with the media query mixins.
 ```css
 @include push(6);
@@ -54,6 +59,7 @@ BlockParty has support for re-ordering columns using the 'push' and 'pull' mixin
 ```css
 @include pull(6);
 ```
+## Offsetting Columns
 
 ## Media Queries
 BlockParty handles media queries primarily through the use of the 'min-query' mixin:
@@ -68,7 +74,7 @@ If you are truly developing mobile first, the 'min-query' mixin above should han
 ```
 The 'max-query' mixin will subtract 1px from the minimum threshold of the established breakpoint, establishing a 'max-width' media query up to, but not including, the specified breakpoint.
 
-Note that I have intentionally excluded a mixin for creating media rules that only apply between a minimum and maximum value at this time. You should try to write cleaner code to avoid the need for these, but if you absolutely must, you could always nest the 'min-query' and 'max-query' mixins to achieve this.
+I have intentionally excluded a mixin for creating media rules that only apply between a minimum and maximum value at this time. You should try to write cleaner code to avoid the need for these, but if you absolutely must, you could always nest the 'min-query' and 'max-query' mixins to achieve this.
 
 ## Breakpoints
 The default breakpoints for BlockParty are as follows:
@@ -78,7 +84,7 @@ $md: 992px;
 $lg: 1200px;
 $xl: 1400px;
 ```
-If you've ever used the Bootstrap CSS framework, these should look familiar. The established breakpoints represent a minimum threshold, meaning that each breakpoint includes everything upwards, and has no upper limit. Each of the breakpoints above can be used with the included media query mixins out of the box, and of course you may override these default variables in your own project should you desire to.
+The established breakpoints represent a minimum threshold, meaning that each breakpoint includes everything upwards, and has no upper limit. Each of the breakpoints above can be used with the included media query mixins out of the box, and of course you may override these default variables in your own project should you desire to.
 
 Creating additional breakpoints is as simple as using the 'custom-breakpoint' function:
 ```css
@@ -86,8 +92,16 @@ $custom: custom-breakpoint(400px);
 ```
 As with the defaults, the pixel value passed to the function should represent a minimum value.
 
-## Why BlockParty?
-
-
+## Why BlockParty?/How Does It Work?
+The goal was to design something lightweight and minimal, but functional. The grid system is float based, and utilizes the 'margin-right' CSS property to create gutters. By default, the final element inside of a row will have a 'margin-right' of zero, and the width of the gutter will be equally distributed among the components of the row so that the width of the columns is accurate, but the entire width of the row is filled. Some grid systems would simply exclude the gutter of the final element and add it back to the width of the div, resulting layouts with uneven or innacturate widths. As an added benefit, BlockParty also will find the last visual element within a row at any given breakpoint, and attempt to remove the 'margin-right' attribute of that element, again redistributing the extra space equally. This allows you to vary the final element visually. Consider the following example:
+```css
+.foo {
+	@include columns(6);
+	@include min-query($md) {
+		@include columns(3);
+	}
+}
+```
+In the example above, a the div '.foo' would span 50% of the row (assuming we are using the default 12 column grid), but at the '$md' breakpoint would span 25% of the row. Assuming there are 4 divs with the class 'foo', many grid systems would leave you with an awkward gutter after the second element leading up to the '$md' breakpoint.
 
 
