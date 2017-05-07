@@ -11,7 +11,8 @@ A bit of quick setup before we begin. Blockparty will output the following CSS s
 
 body, html {
 	margin: 0;
-	padding: 0; }
+	padding: 0;
+}
 
 html {
 	box-sizing: border-box;
@@ -24,21 +25,7 @@ $columns: 12;
 $container: 1200px;
 $gutter: 2em;
 ```
-Feel free to override any of these global variables to suit your own needs in your project file.
-
-## Custom Grids
-In some situations, you'll want to alter the default grid settings to adjust the container size, number of columns, or gutter size. This can be done using the 'layout' mixin. Any use of the 'columns' mixin within a custom grid will inherit the settings of the custom layout.
-
-Begin by defining the layout using the 'custom-layout' function:
-
-```css
-$my_layout: custom-layout();
-```
-
-To utilize a previously defined custom layout, simply use the 'layout' mixin:
-```css
-@include layout($my_layout) { /* your css here */ }
-```
+Feel free to override any of these variables to suit your own needs in your project file.
 ## The Grid System
 The first component of the grid system is the 'container' mixin. This concept should be familiar to anyone who has used a responsive framework in the past. Simply pass the mixin a number value, and it will create a centered div with a maximum width property. If no width is specified, the default value will be used.
 ```css
@@ -65,6 +52,11 @@ BlockParty has support for re-ordering columns using the 'push' and 'pull' mixin
 @include pull(6);
 ```
 ## Offsetting Columns
+In some situations, you'll want to offset a column.
+```css
+@include offset(6);
+```
+This will create a 'margin-left' property, offsetting the column in our left to right layout.
 
 ## Media Queries
 BlockParty handles media queries primarily through the use of the 'min-query' mixin:
@@ -96,7 +88,19 @@ Creating additional breakpoints is as simple as using the 'custom-breakpoint' fu
 $custom: custom-breakpoint(400px);
 ```
 As with the defaults, the pixel value passed to the function should represent a minimum value.
+## Custom Grids
+In some situations, you'll want to alter the default grid settings to adjust the container size, number of columns, or gutter size. This can be done using the 'layout' mixin. Any use of the 'columns,' 'push,' 'pull,' or 'offset' mixin within a custom layout will inherit the settings of the layout.
 
+Begin by defining the layout using the 'custom-layout' function:
+
+```css
+$my_layout: custom-layout();
+```
+
+To utilize a previously defined custom layout, simply use the 'layout' mixin:
+```css
+@include layout($my_layout) { /* your css here */ }
+```
 ## Why BlockParty?/How Does It Work?
 The goal was to design something lightweight and minimal, but functional. The grid system is float based, and utilizes the 'margin-right' CSS property to create gutters. By default, the final element inside of a row will have a 'margin-right' of zero, and the width of the gutter will be equally distributed among the components of the row so that the width of the columns is accurate, but the entire width of the row is filled. Some grid systems would simply exclude the gutter of the final element and add it back to the width of the div, resulting layouts with uneven or innacturate widths. As an added benefit, BlockParty also will find the last visual element within a row at any given breakpoint, and attempt to remove the 'margin-right' attribute of that element, again redistributing the extra space equally. This allows you to vary the final element visually. Consider the following example:
 ```css
