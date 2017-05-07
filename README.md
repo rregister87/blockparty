@@ -20,20 +20,25 @@ html {
 ## Grid Settings
 The default settings for the grid system are as follows:
 ```css
-$container: 1200px;
 $columns: 12;
+$container: 1200px;
 $gutter: 2em;
 ```
 Feel free to override any of these global variables to suit your own needs in your project file.
 
 ## Custom Grids
-In some situations, you'll want to alter the default grid settings to adjust the container size, number of columns, or gutter size. This can be done using the 'grid' mixin. Any use of the 'columns' mixin within a custom grid will inherit the settings of the grid.
+In some situations, you'll want to alter the default grid settings to adjust the container size, number of columns, or gutter size. This can be done using the 'layout' mixin. Any use of the 'columns' mixin within a custom grid will inherit the settings of the custom layout.
+
+Begin by defining the layout using the 'custom-layout' function:
+
 ```css
-@include grid($foo);
+$my_layout: custom-layout();
 ```
 
-To define a new custom grid, use the...
-
+To utilize a previously defined custom layout, simply use the 'layout' mixin:
+```css
+@include layout($my_layout) { /* your css here */ }
+```
 ## The Grid System
 The first component of the grid system is the 'container' mixin. This concept should be familiar to anyone who has used a responsive framework in the past. Simply pass the mixin a number value, and it will create a centered div with a maximum width property. If no width is specified, the default value will be used.
 ```css
