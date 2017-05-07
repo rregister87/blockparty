@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+/*
+	Call a previously defined custom layout.
+*/
+
+@mixin layout($layout) {
+	
+	@content;
+}
