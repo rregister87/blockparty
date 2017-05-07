@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+/*
+	If unitless, will return with px unit.
+*/
+
+@function check-unit($measurement) {
+	@if unitless($measurement) {
+		$measurement_with_unit: $measurement * 1px;
+		@return $measurement_with_unit;
+	}
+	@else {
+		@return $measurement;
+	}
+}
