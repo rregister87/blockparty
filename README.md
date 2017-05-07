@@ -37,7 +37,7 @@ The second necessary component of the grid system is the 'row' mixin. This will 
 @include row();
 ```
 
-In coordination with the 'container' and 'row' mixins, BlockParty creates a float based grid system by utilizing the 'columns' mixin. Simply specify a number of columns that the element should span relative to the number of columns in the layout. If you are using the 'columns' mixin outside of the 'grid' mixin, the default value for number of columns will be utilized.
+In coordination with the 'container' and 'row' mixins, BlockParty creates a float based grid system by utilizing the 'columns' mixin. Simply specify a number of columns that the element should span relative to the number of columns in the layout. If you are using the 'columns' mixin outside of the 'layout' mixin, the default value for number of columns will be utilized.
 ```css
 @include columns(6);
 ```
@@ -94,7 +94,8 @@ In some situations, you'll want to alter the default grid settings to adjust the
 Begin by defining the layout using the 'custom-layout' function:
 
 ```css
-$my_layout: custom-layout();
+/* custom-layout($columns, $container, $gutter); */
+$my_layout: custom-layout(10, 1400px, 3em);
 ```
 
 To utilize a previously defined custom layout, simply use the 'layout' mixin:
