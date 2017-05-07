@@ -3,13 +3,10 @@
 /*
 	Function to define custom breakpoints in px.
 	Ex. $custom: custom-breakpoint(400px);
-	It is assumed that you are specifying a minimum threshold, similar to the defaults.
+	It is assumed that you are specifying a minimum threshold, similar to the default breakpoints.
 */
 
 @function custom-breakpoint($width) {
-	// add missing px unit if necessary
-	@if unitless($width) {
-		$width: $width * 1px;
-	}
+	$breakpoint: check_unit($width);
 	@return $breakpoint;
 }
