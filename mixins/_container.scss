@@ -10,13 +10,10 @@
 	margin-left: auto;
 	margin-right: auto;
 	@if $width {
-		// add missing px unit if necessary
-		@if unitless($width) {
-			$width: $width * 1px;
-		}
+		$width: check-unit($width);
 		max-width: $width;
 	}
 	@else {
-		max-width: $container;
+		max-width: check-unit($container);
 	}
 }
