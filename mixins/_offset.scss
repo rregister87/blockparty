@@ -1,6 +1,11 @@
 @charset "UTF-8";
 
 /*
-	Offset functionality.
+	Offset column functionality.
 	Ex. @include offset(6);
+	Should be used in combination with columns mixin.
 */
+
+@mixin offset($offset) {
+	margin-left: percentage($offset / $columns);
+}
