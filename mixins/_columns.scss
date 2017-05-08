@@ -8,6 +8,12 @@
 @mixin columns($span) {
 	float: left;
 
+	@if $custom_layout != null {
+		$columns: map-get($custom_layout, columns);
+		$container: map-get($custom_layout, container);
+		$gutter: map-get($custom_layout, gutter);
+	}
+
 	$offset_factor: $gutter / $columns;
 	$compensate: $offset_factor * $span;
 	$width_percent: percentage($span / $columns);
