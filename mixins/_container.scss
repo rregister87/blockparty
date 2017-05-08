@@ -7,8 +7,7 @@
 */
 
 @mixin container($width: null) {
-	margin-left: auto;
-	margin-right: auto;
+	margin: auto;
 	@if $width {
 		$width: check-unit($width);
 		max-width: $width;
@@ -16,4 +15,6 @@
 	@else {
 		max-width: check-unit($container);
 	}
+	padding-left: 20px;
+	padding-right: 20px;
 }
