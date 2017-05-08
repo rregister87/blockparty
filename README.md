@@ -22,9 +22,9 @@ html {
 The default settings for the grid system are as follows:
 ```css
 $grid: (
-    $columns: 12;
-    $container: 1200px;
-    $gutter: 2em;
+    $columns: 12,
+    $container: 1200px,
+    $gutter: 2em,
 );
 ```
 Feel free to override the `grid` variable with your own settings in your project file, but be sure to provide all necessary parameters.
