@@ -2,16 +2,11 @@
 
 /*
 	Define our default grid parameters.
-	These may be overridden manually.
+	This may be overridden manually.
 */
 
-$container: 1200px !default;
-$columns: 12 !default;
-$gutter: 2em !default;
-
-
-/*
-	The variable below must exist, but remain null unless within a custom layout mixin.
-*/
-
-$custom_layout: null;
+$grid: (
+	columns: 12,
+	container: 1200px,
+	gutter: 2em,
+);

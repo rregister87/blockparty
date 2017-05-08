@@ -3,7 +3,7 @@ A simple SASS framework for rapid, mobile first development.
 
 ## Scaffolding
 
-A bit of quick setup before we begin. Blockparty will output the following CSS scaffolding for your project:
+Blockparty will output the following CSS scaffolding for your project:
 ```css
 *, *:after, *:before {
     box-sizing: inherit;
@@ -21,13 +21,15 @@ html {
 ## Grid Settings
 The default settings for the grid system are as follows:
 ```css
-$columns: 12;
-$container: 1200px;
-$gutter: 2em;
+$grid: (
+    $columns: 12;
+    $container: 1200px;
+    $gutter: 2em;
+);
 ```
-Feel free to override any of these variables to suit your own needs in your project file.
+Feel free to override the `grid` variable with your own settings in your project file, but be sure to provide all necessary parameters.
 ## The Grid System
-The first component of the grid system is the `container` mixin. This concept should be familiar to anyone who has used a responsive framework in the past. Simply pass the mixin a number value, and it will create a div with a maximum width property. If no width is specified, the default value will be used.
+The first component of the grid system is the `container` mixin. This concept should be familiar to anyone who has used a responsive framework previously. Simply pass the mixin a number value, and it will create a div with a maximum width property. If no width is specified, the defined default value will be used.
 ```css
 @include container(1200px);
 ```
@@ -102,7 +104,7 @@ To utilize a previously defined custom layout, simply use the `layout` mixin:
 @include layout($my_layout) { /* your css here */ }
 ```
 ## Why BlockParty?/How Does It Work?
-The goal was to design something lightweight and minimal, but functional. The grid system is float based, and utilizes the 'margin-right' CSS property to create gutters. By default, the final element inside of a row will have a 'margin-right' of zero, and the width of the gutter will be equally distributed among the components of the row so that the width of the columns is accurate, but the entire width of the row is filled. Some grid systems would simply exclude the gutter of the final element and add it back to the width of the div, resulting layouts with uneven or innacturate widths. As an added benefit, BlockParty also will find the last visual element within a row at any given breakpoint, and attempt to remove the 'margin-right' attribute of that element, again redistributing the extra space equally. This allows you to vary the final element visually. Consider the following example:
+The goal was to design something lightweight and minimal, but functional. The grid system is float based, and utilizes the 'margin-right' CSS property to create gutters. By default, the final element inside of a row will have a `margin-right` of zero, and the width of the gutter will be equally distributed among the components of the row so that the width of the columns is accurate, but the entire width of the row is filled. Some grid systems would simply exclude the gutter of the final element and add it back to the width of the div, resulting layouts with uneven or innacturate widths. As an added benefit, BlockParty also will find the last visual element within a row at any given breakpoint, and attempt to remove the `margin-right` attribute of that element, again redistributing the extra space equally. This allows you to easily vary the final element visually. Consider the following example:
 ```css
 .foo {
     @include columns(6);
@@ -111,6 +113,6 @@ The goal was to design something lightweight and minimal, but functional. The gr
     }
 }
 ```
-In the example above, `.foo` would span 50% of the row (assuming we are using the default 12 column grid), but at the `$md` breakpoint would span 25% of the row. Assuming there are 4 divs with the class `foo`, many grid systems would leave you with an awkward gutter after the second element leading up to the `$md` breakpoint.
+In the example above, `.foo` would span 50% of the row (assuming we are using the default 12 column grid), but at the `$md` breakpoint would span 25% of the row. Assuming there are 4 divs with the class `foo`, many grid systems would leave you with an awkward gutter after the second element leading up to the `$md` breakpoint. This one won't!
 
 

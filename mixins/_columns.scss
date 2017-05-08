@@ -8,22 +8,16 @@
 @mixin columns($span) {
 	float: left;
 
-	@if $custom_layout != null {
-		$columns: map-get($custom_layout, columns);
-		$container: map-get($custom_layout, container);
-		$gutter: map-get($custom_layout, gutter);
-	}
-
-	$offset_factor: $gutter / $columns;
+	$offset_factor: map-get($grid, gutter) / map-get($grid, columns);
 	$compensate: $offset_factor * $span;
-	$width_percent: percentage($span / $columns);
-	$computed_gutter: $gutter - $compensate;
+	$width_percent: percentage($span / map-get($grid, columns));
+	$computed_gutter: map-get($grid, gutter) - $compensate;
 
 	width: calc(#{$width_percent} - #{$computed_gutter});
 	
-	$no_margin: $columns / $span;
+	$no_margin: map-get($grid, columns) / $span;
 
-	&:nth-child(n) { margin-right: $gutter; }
+	&:nth-child(n) { margin-right: map-get($grid, gutter); }
 
 	@if round($no_margin) == $no_margin {
 		&:nth-child(#{$no_margin}) {

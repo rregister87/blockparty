@@ -7,5 +7,5 @@
 */
 
 @mixin offset($offset) {
-	margin-left: percentage($offset / $columns);
+	margin-left: percentage($offset / map-get($grid, columns));
 }

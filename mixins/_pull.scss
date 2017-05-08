@@ -7,6 +7,5 @@
 
 @mixin pull($pull) {
 	position: relative;
-	$percentage: percentage($pull / $columns);
-	right: $percentage;
+	right: percentage($pull / map-get($grid, columns));
 }

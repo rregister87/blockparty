@@ -5,7 +5,8 @@
 */
 
 @mixin layout($layout) {
-	$custom_layout: $layout !global;
+	$default_grid: $grid;
+	$grid: $layout !global;
 	@content;
-	$custom_layout: null !global;
+	$grid: $default_grid !global;
 }

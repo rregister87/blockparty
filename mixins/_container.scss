@@ -3,18 +3,15 @@
 /*
 	Mixin for content container.
 	Ex. @include container(1200px);
-	If no width is specified, the default $container value will be used.
+	If no width is specified, the default container value will be used.
 */
 
 @mixin container($width: null) {
 	margin: auto;
 	@if $width {
-		$width: check-unit($width);
-		max-width: $width;
+		max-width: check-unit($width);
 	}
 	@else {
-		max-width: check-unit($container);
+		max-width: check-unit(map-get($grid, container));
 	}
-	padding-left: 20px;
-	padding-right: 20px;
 }
