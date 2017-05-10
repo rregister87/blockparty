@@ -7,5 +7,12 @@
 
 @mixin pull($pull) {
 	position: relative;
-	right: percentage($pull / map-get($grid, columns));
+
+	$remaining: map-get($grid, columns) - $pull;
+	$offset_factor: map-get($grid, gutter) / map-get($grid, columns);
+	$compensate: $offset_factor * $remaining;
+	$right_percent: percentage($pull / map-get($grid, columns));
+	$computed_gutter: check-unit(map-get($grid, gutter)) - $compensate;
+
+	right: calc(#{$right_percent} - #{$computed_gutter});
 }

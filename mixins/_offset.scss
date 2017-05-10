@@ -7,5 +7,9 @@
 */
 
 @mixin offset($offset) {
-	margin-left: percentage($offset / map-get($grid, columns));
+	$offset_factor: map-get($grid, gutter) / map-get($grid, columns);
+	$compensate: $offset_factor * $offset;
+	$offset_percent: percentage($offset / map-get($grid, columns));
+
+	margin-left: calc(#{$offset_percent} + #{compensate});
 }

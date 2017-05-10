@@ -3,9 +3,17 @@
 /*
 	Push functionality.
 	Ex. @include push(6);
+	Should be used in combination with columns mixin.
 */
 
 @mixin push($push) {
 	position: relative;
-	left: percentage($push / map-get($grid, columns));
+
+	$remaining: map-get($grid, columns) - $push;
+	$offset_factor: map-get($grid, gutter) / map-get($grid, columns);
+	$compensate: $offset_factor * $remaining;
+	$left_percent: percentage($push / map-get($grid, columns));
+	$computed_gutter: check-unit(map-get($grid, gutter)) - $compensate;
+
+	left: calc(#{$left_percent} - #{$computed_gutter});
 }
