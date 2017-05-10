@@ -20,7 +20,7 @@
 	&:nth-child(n) { margin-right: map-get($grid, gutter); }
 
 	@if round($no_margin) == $no_margin {
-		&:nth-child(#{$no_margin}) {
+		&:nth-child(#{$no_margin}n) {
 			margin-right: 0;
 		}
 	}
