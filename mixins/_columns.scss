@@ -11,7 +11,7 @@
 	$offset_factor: map-get($grid, gutter) / map-get($grid, columns);
 	$compensate: $offset_factor * $span;
 	$width_percent: percentage($span / map-get($grid, columns));
-	$computed_gutter: map-get($grid, gutter) - $compensate;
+	$computed_gutter: check-unit(map-get($grid, gutter)) - $compensate;
 
 	width: calc(#{$width_percent} - #{$computed_gutter});
 	
