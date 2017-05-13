@@ -3,6 +3,7 @@
 /*
 	Pull functionality.
 	Ex. @include pull(6);
+	Should be used in combination with columns mixin.
 */
 
 @mixin pull($pull) {
