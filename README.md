@@ -27,25 +27,25 @@ $grid: (
     $gutter: 2em,
 );
 ```
-Feel free to override the `grid` variable with your own settings in your project file, but be sure to provide all necessary parameters.
+Feel free to override the `grid` variable with your own settings in your project file, but be sure to provide all necessary parameters. Gutters can be in whatever unit you want!
 ## The Grid System
 The first component of the grid system is the `container` mixin. This concept should be familiar to anyone who has used a responsive framework previously. Simply pass the mixin a number value, and it will create a div with a maximum width property. If no width is specified, the defined default value will be used.
 ```css
 @include container(1200px);
 ```
 
-The second necessary component of the grid system is the `row` mixin. This will apply clearfixes, and avoid layout issues caused by floats. Apply this mixin to any element that contains a use of the `columns` mixin.
+The second necessary component of the grid system is the `row` mixin. This will apply clearfixes, and avoid layout issues caused by floats. Apply this mixin to any element that contains children using the `columns` mixin.
 ```css
 @include row();
 ```
 
-In coordination with the `container` and `row` mixins, BlockParty creates a float based grid system by utilizing the `columns` mixin. Simply specify a number of columns that the element should span, relative to the number of columns in the layout. If you are using the `columns` mixin outside of the `layout` mixin, the default number of columns will be used.
+In coordination with the `container` and `row` mixins, BlockParty creates a float based grid system by utilizing the `columns` mixin. Simply specify a number of columns that the element should span, relative to the number of columns in the layout. If you are using the `columns` mixin outside of the `layout` mixin, the default number of columns specified in your `grid` variable will be used.
 ```css
 @include columns(6);
 ```
 
 ## Pushing and Pulling Columns
-BlockParty has support for re-ordering columns using the `push` and `pull` mixins. Simply specify a number of columns, similar to the `columns` mixin. `Push` moves elements to the right, while `pull` moves elements to the left. This becomes quite useful for re-ordering content when used in combination with the media query mixins described below.
+BlockParty has support for re-ordering columns using the `push` and `pull` mixins. Simply specify a number of columns, similar to the `columns` mixin. `Push` moves elements to the right, while `pull` moves elements to the left. This becomes quite useful for re-ordering content when used in combination with the media query mixins described below. Like the `columns` mixin, the number of columns pushed or pulled is relative to the total number of columns for the layout.
 ```css
 @include push(6);
 ```
@@ -104,7 +104,7 @@ To utilize a previously defined custom layout, simply use the `layout` mixin:
 @include layout($my_layout) { /* your css here */ }
 ```
 ## Why BlockParty?/How Does It Work?
-The goal was to design something lightweight and minimal, but functional. The grid system is float based, and utilizes the 'margin-right' CSS property to create gutters. By default, the final element inside of a row will have a `margin-right` of zero, and the width of the gutter will be equally distributed among the components of the row so that the width of the columns is accurate, but the entire width of the row is filled. Some grid systems would simply exclude the gutter of the final element and add it back to the width of the div, resulting layouts with uneven or innacturate widths. As an added benefit, BlockParty also will find the last visual element within a row at any given breakpoint, and attempt to remove the `margin-right` attribute of that element, again redistributing the extra space equally. This allows you to easily vary the final element visually. Consider the following example:
+The goal was to design something lightweight and minimal, but functional. The grid system is float based, and utilizes the `margin-right` CSS property to create gutters. By default, the final element inside of a row will have a `margin-right` of zero, and the width of the gutter will be equally distributed among the components of the row so that the width of the columns is accurate, but the entire width of the row is filled. Some grid systems would simply exclude the gutter of the final element and add it back to the width of the div, resulting layouts with uneven or innacturate widths. As an added benefit, BlockParty also will find the last visual element within a row at any given breakpoint, and attempt to remove the `margin-right` attribute of that element, again redistributing the extra space equally. This allows you to easily vary the final element visually. Consider the following example:
 ```css
 .foo {
     @include columns(6);
@@ -114,5 +114,7 @@ The goal was to design something lightweight and minimal, but functional. The gr
 }
 ```
 In the example above, `.foo` would span 50% of the row (assuming we are using the default 12 column grid), but at the `$md` breakpoint would span 25% of the row. Assuming there are 4 divs with the class `foo`, many grid systems would leave you with an awkward gutter after the second element leading up to the `$md` breakpoint. This one won't!
+
+At this time, I've chosen not to include additional features, such as other `box-sizing` options or right-to-left layouts. I simply don't find that I use them very often, and this framework was designed to fit my development style as much as possible.
 
 
